@@ -1,0 +1,559 @@
+---
+const testimonials = [
+    {
+        name: "Fausto",
+        initial: "F",
+        color: "#ff3366",
+        text: "Martín es un profesional excelente, comprometido y que siempre está buscando mejorar. Tuve la suerte trabajar con él y su dedicación es realmente para destacar, no solamente para entregar sus trabajos a tiempo, sino para dar la milla extra que hace que las cosas sean mejor de lo esperado!"
+    },
+    {
+        name: "Milagros",
+        initial: "M",
+        color: "#a855f7",
+        text: "Tuve el privilegio de acompañar a Martín en su formación académica en la Universidad Católica de Santa Fe como docente y directora de carrera. Es un comunicador creativo, lúcido y versátil, con capacidad de hacer aportes originales y críticos. Su gran oratoria y audacia le permiten transmitir ideas con claridad, cercanía y entusiasmo. Además, es una persona abierta al trabajo en equipo, que aporta alegría, frescura y dinamismo a cada proyecto, equilibrando la seriedad profesional con un espíritu divertido que enriquece el trabajo en grupo. Destaco su responsabilidad y la forma en que integra sus talentos creativos con un fuerte compromiso ético en la práctica comunicacional."
+    },
+    {
+        name: "Valentina",
+        initial: "V",
+        color: "#3b82f6",
+        text: "Tengo la oportunidad de trabajar mano a mano con Martín en el área de producción de videos, y que afortunada que me siento por compartir equipo con él! En lo profesional, es una persona creativa, innovadora, responsable y comprometida con cada proyecto. En lo personal, siempre está dispuesto a colaborar, sumar buena energía y nunca falta su sentido del humor que te saca una buena risa. Es un honor trabajar en equipo con Martín, y me enorgullece mucho el vínculo laboral que construimos. Sin dudas lo recomiendo con total confianza para cualquier desafío en el área de comunicación."
+    },
+    {
+        name: "Franca",
+        initial: "F",
+        color: "#10b981",
+        text: "Tuve la suerte de trabajar con Martín en varios proyectos de edición audiovisual y destaco especialmente su profesionalismo y su compromiso constante. Es súper responsable, siempre atento a cada detalle para que el resultado final sea impecable. Además de su talento, es una gran persona: aporta siempre una actitud positiva y predisposición al trabajo en equipo que contribuye a un ambiente laboral ameno y productivo. Es, sin dudas, una persona con la que da gusto compartir cualquier proyecto."
+    },
+    {
+        name: "Facundo",
+        initial: "F",
+        color: "#f59e0b",
+        text: "Martín es la persona más ambiciosa que conocí. Cualquier equipo que busque mejorar o crear cosas nuevas va a ser afortunado de poder contar con Martín. En mi tiempo compartido, no dejó de sorprenderme de las ganas que tenía de mejorar, aprender cosas nuevas y superarse constantemente. Ese hambre viene acompañado también de la personalidad más sociable y agradable que conocí en mi vida laboral. No existe grupo donde Martín no caiga bien, por lo que es el miembro ideal de cualquier equipo de alto rendimiento."
+    }
+];
+---
+
+<section class="testimonials-section">
+    <div class="testimonials-container">
+        <h2 class="section-title">Lo que dicen sobre mi trabajo.</h2>
+        
+        <div class="testimonial-card-wrapper">
+            <div class="card testimonial-card">
+                <div class="card-label">VALORACIONES PROFESIONALES</div>
+                
+                <!-- Swiper Container -->
+                <div class="swiper-container-wrapper">
+                    <!-- Botón Anterior -->
+                    <button type="button" class="swiper-button-prev-custom" aria-label="Testimonio anterior">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+
+                    <!-- Swiper -->
+                    <div class="swiper testimonials-swiper">
+                        <div class="swiper-wrapper">
+                            {testimonials.map((testimonial, index) => (
+                                <div class="swiper-slide">
+                                    <div class="testimonial-content">
+                                        <div class="author-header">
+                                            <div class="author-avatar" data-color={testimonial.color}>
+                                                <span class="avatar-initial" style={`background: ${testimonial.color}`}>
+                                                    {testimonial.initial}
+                                                </span>
+                                            </div>
+                                            <div class="author-name">{testimonial.name}</div>
+                                        </div>
+                                        <div class="testimonial-quote">
+                                            {testimonial.text}
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+
+                    <!-- Botón Siguiente -->
+                    <button type="button" class="swiper-button-next-custom" aria-label="Siguiente testimonio">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+                
+                <!-- Indicadores de Progreso -->
+                <div class="testimonials-indicators">
+                    {testimonials.map((_, index) => (
+                        <button 
+                            type="button"
+                            class={`testimonial-indicator ${index === 0 ? 'active' : ''}`}
+                            data-index={index}
+                            aria-label={`Ir al testimonio ${index + 1}`}
+                        >
+                            <span class="indicator-bar"></span>
+                        </button>
+                    ))}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+import Swiper from 'swiper';
+import { Autoplay, Navigation } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/navigation';
+
+// Función para inicializar Swiper
+function initializeSwiper() {
+    console.log('Inicializando Swiper...');
+    
+    const swiperElement = document.querySelector('.testimonials-swiper');
+    if (!swiperElement) {
+        console.error('No se encontró el elemento .testimonials-swiper');
+        return;
+    }
+
+    // Inicializar Swiper
+    const swiper = new Swiper('.testimonials-swiper', {
+        modules: [Autoplay, Navigation],
+        
+        // Configuración de slides
+        slidesPerView: 1,
+        spaceBetween: 30,
+        
+        // Efecto de transición suave
+        speed: 1000,
+        
+        // Autoplay
+        autoplay: {
+            delay: 8000,
+            disableOnInteraction: false,
+            pauseOnMouseEnter: true,
+        },
+        
+        // Navegación con botones personalizados
+        navigation: {
+            nextEl: '.swiper-button-next-custom',
+            prevEl: '.swiper-button-prev-custom',
+        },
+        
+        // Loop infinito
+        loop: true,
+        
+        // Efecto de transición
+        effect: 'slide',
+
+        // Eventos
+        on: {
+            init: function() {
+                console.log('Swiper inicializado correctamente');
+                updateIndicators(0);
+            },
+            slideChange: function() {
+                console.log('Slide cambió a:', this.realIndex);
+                updateIndicators(this.realIndex);
+            },
+        },
+    });
+
+    // Función para actualizar indicadores
+    function updateIndicators(activeIndex) {
+        const indicators = document.querySelectorAll('.testimonial-indicator');
+        indicators.forEach((indicator, index) => {
+            if (index === activeIndex) {
+                indicator.classList.add('active');
+            } else {
+                indicator.classList.remove('active');
+            }
+        });
+    }
+
+    // Click en indicadores para navegar
+    const indicators = document.querySelectorAll('.testimonial-indicator');
+    indicators.forEach((indicator) => {
+        indicator.addEventListener('click', function() {
+            const index = parseInt(this.getAttribute('data-index') || '0');
+            console.log('Click en indicador:', index);
+            swiper.slideToLoop(index);
+        });
+    });
+    
+    // Asegurar que las flechas funcionan con listeners directos
+    const prevButton = document.querySelector('.swiper-button-prev-custom');
+    const nextButton = document.querySelector('.swiper-button-next-custom');
+    
+    if (prevButton) {
+        prevButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            console.log('Click en botón anterior');
+            swiper.slidePrev();
+        });
+    } else {
+        console.error('No se encontró el botón anterior');
+    }
+    
+    if (nextButton) {
+        nextButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            console.log('Click en botón siguiente');
+            swiper.slideNext();
+        });
+    } else {
+        console.error('No se encontró el botón siguiente');
+    }
+
+    console.log('Swiper configurado con', swiper.slides.length, 'slides');
+}
+
+// Inicializar cuando el DOM esté listo
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializeSwiper);
+} else {
+    // El DOM ya está listo
+    initializeSwiper();
+}
+
+// También escuchar el evento de Astro por si acaso
+document.addEventListener('astro:page-load', initializeSwiper);
+</script>
+
+<style>
+/* Sección de testimonios */
+.testimonials-section {
+    background-color: #0a0a0a;
+    padding: 80px 24px;
+    margin-top: 60px;
+}
+
+.testimonials-container {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.section-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(40px, 6vw, 64px);
+    font-weight: 800;
+    text-align: center;
+    margin-bottom: 60px;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    background: linear-gradient(135deg, #3b82f6, #a855f7);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.testimonial-card-wrapper {
+    display: flex;
+    justify-content: center;
+}
+
+.testimonial-card {
+    width: 100%;
+    position: relative;
+}
+
+/* Container con flechas */
+.swiper-container-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding-bottom: 60px;
+}
+
+/* Swiper container */
+.testimonials-swiper {
+    width: 100%;
+    height: auto;
+    flex: 1;
+}
+
+.swiper-wrapper {
+    align-items: stretch;
+}
+
+.swiper-slide {
+    height: auto;
+    display: flex;
+    align-items: center;
+}
+
+.testimonial-content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    align-items: center;
+}
+
+.author-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    animation: fadeInAuthor 0.8s ease-out;
+}
+
+.author-avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 3px solid #C5FF00;
+    box-shadow: 0 0 30px rgba(197, 255, 0, 0.5);
+    animation: scaleIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.avatar-initial {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 48px;
+    font-weight: 900;
+    color: white;
+    font-family: 'Space Grotesk', sans-serif;
+    text-transform: uppercase;
+}
+
+.author-name {
+    font-size: 28px;
+    font-weight: 700;
+    color: #C5FF00;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    text-align: center;
+}
+
+.testimonial-quote {
+    font-size: clamp(18px, 2vw, 22px);
+    font-weight: 400;
+    line-height: 1.8;
+    color: rgba(255, 255, 255, 0.95);
+    text-align: center;
+    animation: fadeInQuote 0.8s ease-out 0.3s both;
+    max-width: 100%;
+}
+
+/* Botones de navegación personalizados */
+.swiper-button-prev-custom,
+.swiper-button-next-custom {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.08);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    color: rgba(255, 255, 255, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 20px;
+    flex-shrink: 0;
+    z-index: 10;
+}
+
+.swiper-button-prev-custom:hover,
+.swiper-button-next-custom:hover {
+    background: rgba(197, 255, 0, 0.2);
+    border-color: #C5FF00;
+    color: #C5FF00;
+    transform: scale(1.15);
+    box-shadow: 0 0 25px rgba(197, 255, 0, 0.4);
+}
+
+.swiper-button-prev-custom:active,
+.swiper-button-next-custom:active {
+    transform: scale(1.05);
+    box-shadow: 0 0 15px rgba(197, 255, 0, 0.6);
+}
+
+/* Indicadores de progreso personalizados */
+.testimonials-indicators {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    padding-top: 32px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.testimonial-indicator {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    position: relative;
+}
+
+.indicator-bar {
+    display: block;
+    width: 50px;
+    height: 5px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 3px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.indicator-bar::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    background: #C5FF00;
+    transition: width 0.3s ease;
+}
+
+.testimonial-indicator.active .indicator-bar {
+    background: rgba(197, 255, 0, 0.3);
+}
+
+.testimonial-indicator.active .indicator-bar::before {
+    width: 100%;
+    animation: indicatorProgress 8s linear;
+}
+
+.testimonial-indicator:hover .indicator-bar {
+    background: rgba(255, 255, 255, 0.4);
+    transform: scaleY(1.4);
+}
+
+/* Animaciones */
+@keyframes fadeInAuthor {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes scaleIn {
+    0% {
+        opacity: 0;
+        transform: scale(0);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes fadeInQuote {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes indicatorProgress {
+    from {
+        width: 0%;
+    }
+    to {
+        width: 100%;
+    }
+}
+
+/* Responsive */
+@media (max-width: 968px) {
+    .testimonials-section {
+        padding: 60px 24px;
+        margin-top: 40px;
+    }
+
+    .section-title {
+        margin-bottom: 40px;
+    }
+
+    .author-avatar {
+        width: 80px;
+        height: 80px;
+    }
+
+    .avatar-initial {
+        font-size: 40px;
+    }
+
+    .author-name {
+        font-size: 24px;
+    }
+
+    .swiper-button-prev-custom,
+    .swiper-button-next-custom {
+        width: 45px;
+        height: 45px;
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 640px) {
+    .testimonials-section {
+        padding: 40px 20px;
+    }
+
+    .swiper-container-wrapper {
+        gap: 12px;
+    }
+
+    .author-avatar {
+        width: 70px;
+        height: 70px;
+        border-width: 2px;
+    }
+
+    .avatar-initial {
+        font-size: 36px;
+    }
+
+    .author-name {
+        font-size: 20px;
+    }
+
+    .swiper-button-prev-custom,
+    .swiper-button-next-custom {
+        width: 40px;
+        height: 40px;
+        font-size: 14px;
+    }
+
+    .testimonials-indicators {
+        gap: 8px;
+        padding-top: 24px;
+    }
+
+    .indicator-bar {
+        width: 40px;
+        height: 4px;
+    }
+}
+
+/* Ocultar flechas en mobile muy pequeño */
+@media (max-width: 480px) {
+    .swiper-button-prev-custom,
+    .swiper-button-next-custom {
+        display: none;
+    }
+    
+    .swiper-container-wrapper {
+        padding-bottom: 50px;
+    }
+}
+</style>

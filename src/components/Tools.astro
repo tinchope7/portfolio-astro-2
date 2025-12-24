@@ -1,0 +1,108 @@
+---
+const tools = [
+    { name: "CapCut", description: "Edición de videos", level: "advanced", id: "capcut" },
+    { name: "Canva", description: "Diseño de contenido", level: "advanced", id: "canva" },
+    { name: "OBS Studio", description: "Streaming", level: "advanced", id: "obs" },
+    { name: "Adobe Audition", description: "Edición de audios", level: "advanced", id: "audition" },
+    { name: "Adobe Premiere", description: "Edición de videos", level: "intermediate", id: "premiere" }
+];
+---
+
+<div class="right-column">
+    <div class="card tools-card">
+        <h3 class="card-title">
+            <i class="fas fa-tools"></i>
+            Herramientas
+        </h3>
+        
+        <div class="tools-list">
+            {tools.map((tool) => (
+                <div class="tool-item" data-tool={tool.id}>
+                    <div class:list={["tool-icon", tool.id]}>
+                        {tool.id === 'capcut' && (
+                            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                                <defs>
+                                    <linearGradient id="capcutGlow" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" style="stop-color:#ff3366;stop-opacity:1" />
+                                        <stop offset="100%" style="stop-color:#ff6b9d;stop-opacity:1" />
+                                    </linearGradient>
+                                </defs>
+                                <circle cx="35" cy="35" r="10" fill="none" stroke="url(#capcutGlow)" stroke-width="3.5"/>
+                                <circle cx="65" cy="35" r="10" fill="none" stroke="url(#capcutGlow)" stroke-width="3.5"/>
+                                <line x1="35" y1="35" x2="50" y2="60" stroke="url(#capcutGlow)" stroke-width="4" stroke-linecap="round"/>
+                                <line x1="65" y1="35" x2="50" y2="60" stroke="url(#capcutGlow)" stroke-width="4" stroke-linecap="round"/>
+                                <circle cx="50" cy="60" r="3.5" fill="url(#capcutGlow)"/>
+                                <circle cx="35" cy="35" r="4" fill="url(#capcutGlow)"/>
+                                <circle cx="65" cy="35" r="4" fill="url(#capcutGlow)"/>
+                            </svg>
+                        )}
+                        
+                        {tool.id === 'canva' && (
+                            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                                <defs>
+                                    <linearGradient id="canvaGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" style="stop-color:#00c4cc;stop-opacity:1" />
+                                        <stop offset="50%" style="stop-color:#7d2ae8;stop-opacity:1" />
+                                        <stop offset="100%" style="stop-color:#c724b1;stop-opacity:1" />
+                                    </linearGradient>
+                                </defs>
+                                <rect width="100" height="100" rx="22" fill="url(#canvaGradient)"/>
+                                <text x="50" y="73" font-family="'Arial Black', sans-serif" font-size="62" font-weight="900" fill="white" text-anchor="middle">C</text>
+                            </svg>
+                        )}
+                        
+                        {tool.id === 'obs' && (
+                            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                                <defs>
+                                    <linearGradient id="obsGlow" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" style="stop-color:#10b981;stop-opacity:1" />
+                                        <stop offset="100%" style="stop-color:#34d399;stop-opacity:1" />
+                                    </linearGradient>
+                                </defs>
+                                <rect x="18" y="30" width="64" height="40" rx="8" fill="none" stroke="url(#obsGlow)" stroke-width="3.5"/>
+                                <circle cx="50" cy="50" r="14" fill="none" stroke="url(#obsGlow)" stroke-width="3"/>
+                                <circle cx="50" cy="50" r="7" fill="url(#obsGlow)"/>
+                                <circle cx="28" cy="38" r="3.5" fill="#ff3366">
+                                    <animate attributeName="opacity" values="1;0.3;1" dur="1.5s" repeatCount="indefinite"/>
+                                </circle>
+                            </svg>
+                        )}
+                        
+                        {tool.id === 'audition' && (
+                            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                                <defs>
+                                    <linearGradient id="auGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" style="stop-color:#9333ea;stop-opacity:1" />
+                                        <stop offset="100%" style="stop-color:#c084fc;stop-opacity:1" />
+                                    </linearGradient>
+                                </defs>
+                                <rect width="100" height="100" rx="22" fill="url(#auGradient)"/>
+                                <text x="50" y="73" font-family="'Arial Black', sans-serif" font-size="54" font-weight="900" fill="white" text-anchor="middle">Au</text>
+                            </svg>
+                        )}
+                        
+                        {tool.id === 'premiere' && (
+                            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                                <defs>
+                                    <linearGradient id="prGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:1" />
+                                        <stop offset="100%" style="stop-color:#60a5fa;stop-opacity:1" />
+                                    </linearGradient>
+                                </defs>
+                                <rect width="100" height="100" rx="22" fill="url(#prGradient)"/>
+                                <text x="50" y="73" font-family="'Arial Black', sans-serif" font-size="54" font-weight="900" fill="white" text-anchor="middle">Pr</text>
+                            </svg>
+                        )}
+                    </div>
+                    <div class="tool-info">
+                        <h4>{tool.name}</h4>
+                        <p>{tool.description}</p>
+                        <span class:list={["level-badge", tool.level]}>
+                            {tool.level === 'advanced' ? 'Avanzado' : 'Intermedio'}
+                        </span>
+                    </div>
+                </div>
+            ))}
+        </div>
+    </div>
+</div>

@@ -1,0 +1,201 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Profile from '../components/Profile.astro';
+import Experience from '../components/Experience.astro';
+import Tools from '../components/Tools.astro';
+import Testimonials from '../components/Testimonials.astro';
+---
+
+<Layout title="Martín Peña Escobedo | Portfolio">
+    <!-- LAYOUT HORIZONTAL CON GRID -->
+    <div class="main-grid">
+        <Profile />
+        <Experience />
+        <Tools />
+    </div>
+
+    <!-- SECCIÓN DE TESTIMONIOS -->
+    <Testimonials />
+</Layout>
+
+<script>
+// Animaciones de entrada
+document.addEventListener('DOMContentLoaded', function() {
+    // Animar cards al cargar la página con stagger effect
+    const cards = document.querySelectorAll('.card');
+    cards.forEach((card, index) => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(30px)';
+        
+        setTimeout(() => {
+            card.style.transition = 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
+            card.style.opacity = '1';
+            card.style.transform = 'translateY(0)';
+        }, index * 150);
+    });
+
+    // Efecto ripple en botones sociales
+    const socialButtons = document.querySelectorAll('.social-btn');
+    
+    socialButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            const ripple = document.createElement('span');
+            const rect = button.getBoundingClientRect();
+            
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            ripple.style.cssText = `
+                position: absolute;
+                border-radius: 50%;
+                background: rgba(255, 255, 255, 0.6);
+                width: 15px;
+                height: 15px;
+                left: ${x}px;
+                top: ${y}px;
+                transform: translate(-50%, -50%);
+                pointer-events: none;
+                animation: ripple 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            `;
+            
+            button.appendChild(ripple);
+            
+            setTimeout(() => {
+                ripple.remove();
+            }, 800);
+        });
+    });
+
+    // Animación del avatar
+    const avatar = document.querySelector('.profile-avatar');
+    
+    if (avatar) {
+        avatar.addEventListener('mouseenter', function() {
+            this.style.transform = 'scale(1.15) rotate(8deg)';
+            this.style.boxShadow = '0 0 60px rgba(59, 130, 246, 0.6)';
+        });
+        
+        avatar.addEventListener('mouseleave', function() {
+            this.style.transform = 'scale(1) rotate(0deg)';
+            this.style.boxShadow = '0 0 40px rgba(59, 130, 246, 0.4)';
+        });
+    }
+
+    // Animación de experiencia items
+    const experienceItems = document.querySelectorAll('.experience-item');
+    
+    experienceItems.forEach((item, index) => {
+        item.style.opacity = '0';
+        item.style.transform = 'translateX(-30px)';
+        
+        setTimeout(() => {
+            item.style.transition = 'all 0.7s cubic-bezier(0.4, 0, 0.2, 1)';
+            item.style.opacity = '1';
+            item.style.transform = 'translateX(0)';
+        }, 400 + (index * 120));
+    });
+
+    // Animación de tool items con efectos avanzados
+    const toolItems = document.querySelectorAll('.tool-item');
+    
+    toolItems.forEach((item, index) => {
+        item.style.opacity = '0';
+        item.style.transform = 'translateX(40px)';
+        
+        setTimeout(() => {
+            item.style.transition = 'opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1), transform 0.7s cubic-bezier(0.4, 0, 0.2, 1)';
+            item.style.opacity = '1';
+            item.style.transform = 'translateX(0)';
+        }, 500 + (index * 150));
+    });
+
+    // Efecto parallax sutil en hover
+    toolItems.forEach(item => {
+        item.addEventListener('mousemove', function(e) {
+            const rect = this.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            
+            const percentX = (x - centerX) / centerX;
+            const percentY = (y - centerY) / centerY;
+            
+            const icon = this.querySelector('.tool-icon');
+            if (icon) {
+                icon.style.transform = `perspective(1000px) rotateY(${percentX * 5}deg) rotateX(${-percentY * 5}deg) scale(1.05)`;
+            }
+        });
+        
+        item.addEventListener('mouseleave', function() {
+            const icon = this.querySelector('.tool-icon');
+            if (icon) {
+                icon.style.transform = 'perspective(1000px) rotateY(0deg) rotateX(0deg) scale(1)';
+            }
+        });
+    });
+
+    // Animación del badge al hacer hover
+    toolItems.forEach(item => {
+        const badge = item.querySelector('.level-badge');
+        
+        item.addEventListener('mouseenter', function() {
+            if (badge) {
+                badge.style.transform = 'scale(1.1)';
+                badge.style.boxShadow = '0 4px 16px rgba(0, 0, 0, 0.3)';
+            }
+        });
+        
+        item.addEventListener('mouseleave', function() {
+            if (badge) {
+                badge.style.transform = 'scale(1)';
+            }
+        });
+    });
+
+    // Estadísticas animadas mejoradas
+    const statNumbers = document.querySelectorAll('.stat-number');
+    
+    statNumbers.forEach(stat => {
+        const finalValue = stat.textContent;
+        const numericValue = parseInt(finalValue);
+        
+        if (!isNaN(numericValue)) {
+            let currentValue = 0;
+            const increment = numericValue / 40;
+            const isPlus = finalValue.includes('+');
+            
+            const counter = setInterval(() => {
+                currentValue += increment;
+                
+                if (currentValue >= numericValue) {
+                    stat.textContent = finalValue;
+                    clearInterval(counter);
+                    stat.style.transform = 'scale(1.2)';
+                    setTimeout(() => {
+                        stat.style.transform = 'scale(1)';
+                    }, 200);
+                } else {
+                    stat.textContent = Math.floor(currentValue) + (isPlus ? '+' : '');
+                }
+            }, 25);
+        }
+    });
+
+    // Mensaje de bienvenida en consola
+    console.log('%c🚀 Portfolio de Martín Peña Escobedo', 'font-size: 24px; font-weight: bold; color: #3b82f6; text-shadow: 0 0 15px #3b82f6, 0 0 30px #3b82f6;');
+    console.log('%c✨ Creative Editor | Content Creator', 'font-size: 16px; font-weight: 600; color: #a855f7; text-shadow: 0 0 10px #a855f7;');
+    console.log('%c💻 Diseño moderno con Astro + Swiper.js', 'font-size: 14px; color: #10b981;');
+    console.log('%c📱 100% Responsive & Optimizado', 'font-size: 14px; color: #06b6d4;');
+});
+</script>
+
+<style>
+@keyframes ripple {
+    to {
+        transform: translate(-50%, -50%) scale(40);
+        opacity: 0;
+    }
+}
+</style>

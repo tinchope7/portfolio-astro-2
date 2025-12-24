@@ -1,0 +1,75 @@
+---
+const experiences = [
+    {
+        title: "Creative Editor",
+        company: "Zaple Tech",
+        date: "2024 — Actualidad",
+        current: true,
+        description: "Edición de videos para redes sociales: Reels, shorts",
+        tasks: []
+    },
+    {
+        title: "Equipo de Redes",
+        company: "El Litoral / Notife",
+        date: "2023 — 2024",
+        current: false,
+        tasks: [
+            "Creación de contenido: Reels, Feed e historias",
+            "Copywriting"
+        ]
+    },
+    {
+        title: "Community Manager",
+        company: "Hi Fry",
+        date: "2023 — 2025",
+        current: false,
+        tasks: [
+            "Creación, planificación y diseño de contenido",
+            "Evaluación de métricas"
+        ]
+    },
+    {
+        title: "Productor Radiofónico",
+        company: "LT9 Radio Brigadier López",
+        date: "2021",
+        current: false,
+        tasks: [
+            "Planificación de Contenidos",
+            "Investigación y Preproducción",
+            "Coordinación de Invitados"
+        ]
+    }
+];
+---
+
+<div class="center-column">
+    <div class="card experience-card">
+        <h3 class="card-title">
+            <i class="fas fa-briefcase"></i>
+            Experiencia
+        </h3>
+        
+        <div class="experience-list">
+            {experiences.map((exp) => (
+                <div class:list={["experience-item", { current: exp.current }]}>
+                    <div class="exp-header">
+                        <div>
+                            <h4>{exp.title}</h4>
+                            <p class="company">{exp.company}</p>
+                        </div>
+                        {exp.current && <span class="exp-badge current-badge">Actual</span>}
+                    </div>
+                    <span class="exp-date">{exp.date}</span>
+                    {exp.description && <p class="exp-desc">{exp.description}</p>}
+                    {exp.tasks.length > 0 && (
+                        <ul class="exp-list">
+                            {exp.tasks.map((task) => (
+                                <li>{task}</li>
+                            ))}
+                        </ul>
+                    )}
+                </div>
+            ))}
+        </div>
+    </div>
+</div>
